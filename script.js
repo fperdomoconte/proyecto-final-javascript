@@ -116,6 +116,8 @@ function mostrarProductos() {
         productosTexto += `Altitud: ${producto.altitud}\n`;
         productosTexto += `Puntaje (Cupping Score): ${producto.puntaje}\n`;
         productosTexto += `Método: ${producto.metodo}\n`;
+        productosTexto += "_________________________________________\n"
+        
     }
     console.log(productosTexto);
 
@@ -166,6 +168,7 @@ function agregarCarrito() /* parametro */ {
         const producto = carritoCompras[i];
         carritoTexto += `Nombre: ${producto.nombre}\n`;
         carritoTexto += `Código: ${producto.id}\n`;
+        productosTexto += "_________________________________________\n"
     }
     console.log(carritoTexto);
 
