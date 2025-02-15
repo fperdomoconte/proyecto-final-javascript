@@ -1,6 +1,3 @@
-//SALUDO
-alert("Bienvenido/a al simulador! Haz click en 'Aceptar' para empezar")
-
 // LISTADO DE PRODUCTOS
 const productos = [
     {
@@ -9,7 +6,8 @@ const productos = [
         origen: "Colombia",
         altitud: "1650 msnm",
         puntaje: 88.75,
-        metodo: "Espresso"
+        metodo: "Espresso",
+        precio: 13.00
     },
     {
         id: 2,
@@ -17,7 +15,8 @@ const productos = [
         origen: "Honduras",
         altitud: "1600 msnm",
         puntaje: 87.5,
-        metodo: "Moka"
+        metodo: "Moka",
+        precio: 14.50
     },
     {
         id: 3,
@@ -25,7 +24,8 @@ const productos = [
         origen: "Uganda",
         altitud: "2100 msnm",
         puntaje: 86.0,
-        metodo: "Francesa"
+        metodo: "Francesa",
+        precio: 16.00
     },
     {
         id: 4,
@@ -33,7 +33,8 @@ const productos = [
         origen: "Etiopía",
         altitud: "2200 msnm",
         puntaje: 88.0,
-        metodo: "Aeropress"
+        metodo: "Aeropress",
+        precio: 18.00
     },
     {
 
@@ -42,7 +43,8 @@ const productos = [
         origen: "Brasil",
         altitud: "1100 msnm",
         puntaje: 86.5,
-        metodo: "V80"
+        metodo: "V80",
+        precio: 12.50
     },
     {
         id: 6,
@@ -50,7 +52,8 @@ const productos = [
         origen: "Etiopía",
         altitud: "2100 msnm",
         puntaje: 87.75,
-        metodo: "Filtro"
+        metodo: "Filtro",
+        precio: 14.80
     },
     {
         id: 7,
@@ -58,7 +61,8 @@ const productos = [
         origen: "Brasil",
         altitud: "1200 msnm",
         puntaje: 85.5,
-        metodo: "Moka"
+        metodo: "Moka",
+        precio: 14.80
     },
     {
         id: 8,
@@ -66,7 +70,8 @@ const productos = [
         origen: "Costa Rica",
         altitud: "1500 msnm",
         puntaje: 88.5,
-        metodo: "Filtro"
+        metodo: "Filtro",
+        precio: 12.00
     },
     {
         id: 9,
@@ -74,7 +79,8 @@ const productos = [
         origen: "El Salvador",
         altitud: "1500 msnm",
         puntaje: 87.0,
-        metodo: "Moka"
+        metodo: "Moka",
+        precio: 16.50
     },
     {
         id: 10,
@@ -82,7 +88,8 @@ const productos = [
         origen: "Kenia",
         altitud: "1700 msnm",
         puntaje: 89.0,
-        metodo: "Francesa"
+        metodo: "Francesa",
+        precio: 14.50
     },
     {
         id: 11,
@@ -90,7 +97,8 @@ const productos = [
         origen: "Kenia",
         altitud: "1600 msnm",
         puntaje: 88.25,
-        metodo: "Aeropress"
+        metodo: "Aeropress",
+        precio: 13.00
     },
     {
         id: 12,
@@ -98,105 +106,62 @@ const productos = [
         origen: "Colombia",
         altitud: "1700 msnm",
         puntaje: 86.0,
-        metodo: "Espresso"
+        metodo: "Espresso",
+        precio: 12.80
     }
 ];
 
-//Array donde se guadaran los productos seleccionados como objetos
-const carritoCompras = [];
+// Cargar carrito desde localStorage o inicializar vacío
+let carritoCompras = JSON.parse(localStorage.getItem("carrito")) || [];
 
-//Funcion para mostrar la lista de productos concatenado datos como texto
-function mostrarProductos() {
-    let productosTexto = "Listado de productos disponibles:\n\n";
-    for (let i = 0; i < productos.length; i++) {
-        const producto = productos[i];
-        productosTexto += `Codigo: ${producto.id}\n`;
-        productosTexto += `Nombre: ${producto.nombre}\n`;
-        productosTexto += `Origen: ${producto.origen}\n`;
-        productosTexto += `Altitud: ${producto.altitud}\n`;
-        productosTexto += `Puntaje (Cupping Score): ${producto.puntaje}\n`;
-        productosTexto += `Método: ${producto.metodo}\n`;
-        productosTexto += "_________________________________________\n"
-        
-    }
-    console.log(productosTexto);
-
-    /* if (inicio == "VER") {
-        let productosTexto = "Listado de productos disponibles:\n\n";
-
-        for (let i = 0; i < productos.length; i++) {
-            const producto = productos[i];
-            productosTexto += `Codigo: ${producto.id}\n`;
-            productosTexto += `Nombre: ${producto.nombre}\n`;
-            productosTexto += `Origen: ${producto.origen}\n`;
-            productosTexto += `Altitud: ${producto.altitud}\n`;
-            productosTexto += `Puntaje (Cupping Score): ${producto.puntaje}\n`;
-            productosTexto += `Método: ${producto.metodo}\n`;
-            productosTexto += "----------------------\n"
-        }
-        console.log(productosTexto);
-
-    } else if (inicio == "SALIR") {
-        alert("Adios! Gracias por tu visita");
-    } else {
-        alert(inicio + " no es una opción válida. Inténtalo de nuevo.");
-        mostrarProductos();
-    } */
-}
+//Traet la lista de productos en el carrito
+const listaCarrito = document.getElementById("products-list");
+const botonVaciarCarrito = document.getElementById("empty-cart");
 
 //Funcion para agregar productos al carrito
-function agregarCarrito() /* parametro */ {
+function agregarCarrito(event) {
+    const productId = parseInt(event.target.dataset.id);
+    const productoSeleccionado = productos.find(producto => producto.id === productId);
 
-    //Bucle para ir agregando los productos
-    let agregaCarrito;
-    do {
-        agregaCarrito = parseInt(prompt("Ingresa el Codigo del producto que quieras agregar, o '0' para salir"));
-
-        //Bucle for para comparar ids y agregar al array de carrito
-        for (const producto of productos) {
-            if (producto.id === agregaCarrito) {
-                carritoCompras.push(producto);
-                break;
-            }
-        }
-
-    } while (agregaCarrito !== 0);
-
-    //MOstrasr los productos
-    let carritoTexto = "En tu carrito:\n\n";
-    for (let i = 0; i < carritoCompras.length; i++) {
-        const producto = carritoCompras[i];
-        carritoTexto += `Nombre: ${producto.nombre}\n`;
-        carritoTexto += `Código: ${producto.id}\n`;
-        productosTexto += "_________________________________________\n"
+    if (productoSeleccionado) {
+        carritoCompras.push(productoSeleccionado);
+        guardarCarrito();
+        actualizarCarrito(); 
     }
-    console.log(carritoTexto);
-
-    /* console.log("Productos en el carrito:");
-    console.log(carritoCompras); */
-
 }
 
-//Llamada a la funcion
-let inicio = prompt("Deseas ver los productos disponibles? Si es asi, click en 'VER'. De lo contrario ingresa 'SALIR'")
-
-if (inicio == "VER") {
-    mostrarProductos();
-
-    let verificaCompra = prompt("Deseas agregar productos al carrito?, Ingresa SI o cualquier tecla para salir");
-
-    if (verificaCompra == "SI") {
-        //Llamada a la funcion 
-        agregarCarrito();
-    } else {
-        alert("Adios! Gracias por tu visita");
-    }
-
-} else if (inicio == "SALIR") {
-    alert("Adios! Gracias por tu visita");
-
-} else {
-    alert(inicio + " no es una opción válida. Inténtalo de nuevo.");
-    mostrarProductos();
+// guarda carrito en localStorage
+function guardarCarrito() {
+    localStorage.setItem("carrito", JSON.stringify(carritoCompras));
 }
 
+// vaciar el carrito LS
+function vaciarCarrito() {
+    carritoCompras = [];
+    guardarCarrito();
+    actualizarCarrito();
+}
+
+// actualizar la lista de productos
+function actualizarCarrito() {
+    listaCarrito.innerHTML = "";
+
+    carritoCompras.forEach(producto => {
+        let li = document.createElement("li");
+        li.innerText = `${producto.nombre} - $${producto.precio}`;
+        listaCarrito.appendChild(li);
+    });
+}
+
+// event "Agregar al carro"
+document.addEventListener("DOMContentLoaded", () => {
+    actualizarCarrito(); // Cargar carrito al iniciar la página
+
+    const botonesAgregar = document.querySelectorAll(".product-add");
+    botonesAgregar.forEach(boton => {
+        boton.addEventListener("click", agregarCarrito);
+    });
+
+    // Event listener para el botón "Vaciar Carrito"
+    botonVaciarCarrito.addEventListener("click", vaciarCarrito);
+});
