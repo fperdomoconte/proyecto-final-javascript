@@ -1,0 +1,13 @@
+.footer-container {
+  background-color: rgba(244, 244, 244, 0.893);
+  border-top: 2px solid rgb(255, 0, 0);
+  height: 3rem;
+
+  display: flex;
+  flex-direction: column;
+
+  h6 {
+    align-self: center;
+    margin-top: 10px;
+  }
+}
