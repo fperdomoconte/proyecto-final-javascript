@@ -53,8 +53,11 @@ function crearProducto() {
 /* cargar los prodcutos al cargar la pagina */
 document.addEventListener("DOMContentLoaded", crearProducto);
 
+
+// Cargar carrito desde localStorage o inicializar vacío
+let carritoCompras = JSON.parse(localStorage.getItem("carrito")) || [];
+
 //agregar productos al carrito
-let carritoCompras = [];
 const listaCarrito = document.getElementById("lista-carrito");
 
 function agregarCarrito(productoId) {
@@ -62,21 +65,24 @@ function agregarCarrito(productoId) {
 
     if (productoSeleccionado) {
         carritoCompras.push(productoSeleccionado);
+        guardarCarrito();/* 
+        actualizarCarrito(); */
 
-        actualizarCarrito();
     }
 }
 
 // actualizar la lista de productos
 function actualizarCarrito() {
+    
+    listaCarrito.innerHTML = "";
 
     if (carritoCompras.length === 0) {
         let li = document.createElement("li");
         li.innerText = "Actualmente tu carrito esta vacio";
         listaCarrito.appendChild(li);
-    } else {
-        listaCarrito.innerHTML = "";
-        
+    } else {/* 
+        listaCarrito.innerHTML = ""; */
+
         carritoCompras.forEach(producto => {
             let li = document.createElement("li");
             li.innerText = `${producto.nombre}: $${producto.precio}`;
@@ -91,33 +97,21 @@ document.querySelector(".tdc-cart").addEventListener("click", function () {
 
     offcanvas.show();
 
+    actualizarCarrito();
+
 });
 
-
-/* // Cargar carrito desde localStorage o inicializar vacío
-let carritoCompras = JSON.parse(localStorage.getItem("carrito")) || []; */
-
-/* //Traer la lista de productos en el carrito
-const listaCarrito = document.getElementById("products-list");
-const botonVaciarCarrito = document.getElementById("empty-cart"); */
-
-// guarda carrito en localStorage
-/* function guardarCarrito() {
+// guarda carrito en LS
+function guardarCarrito() {
     localStorage.setItem("carrito", JSON.stringify(carritoCompras));
-}
+};
 
 // vaciar el carrito LS
 function vaciarCarrito() {
     carritoCompras = [];
-    guardarCarrito();
+    guardarCarrito(); 
     actualizarCarrito();
-} */
+}
 
-/*     const botonesAgregar = document.querySelectorAll(".product-add");
-    botonesAgregar.forEach(boton => {
-        boton.addEventListener("click", agregarCarrito);
-    });
-
-    // Event listener para el botón "Vaciar Carrito"
-    botonVaciarCarrito.addEventListener("click", vaciarCarrito);
-}); */
+const botonVaciarCarrito = document.getElementById("empty-cart");
+botonVaciarCarrito.addEventListener("click", vaciarCarrito);
