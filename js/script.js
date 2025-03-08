@@ -3,17 +3,17 @@ class Producto {
     constructor(id, nombre, origen, altitud, puntaje, metodo, precio, imagen) {
         this.id = id,
             this.nombre = nombre;
-            this.origen = origen;
-            this.altitud = altitud;
-            this.puntaje = puntaje;
-            this.metodo = metodo;
-            this.precio = precio;
-            this.imagen = imagen;
+        this.origen = origen;
+        this.altitud = altitud;
+        this.puntaje = puntaje;
+        this.metodo = metodo;
+        this.precio = precio;
+        this.imagen = imagen;
     }
 }
 
 const productos = [
-    new Producto(1, "Los Rodriguez", "Bolivia", "1650 msnm",88.75, "Espresso", 13.00, "./assets/images/losRodriguez.jpg"),
+    new Producto(1, "Los Rodriguez", "Bolivia", "1650 msnm", 88.75, "Espresso", 13.00, "./assets/images/losRodriguez.jpg"),
     new Producto(2, "Laurel", "Honduras", "1600 msnm", 87.5, "Moka", 14.50, "./assets/images/laurel.jpg"),
     new Producto(3, "Bukonzo Fly", "Uganda", "2100 msnm", 86.0, "Francesa", 16.00, "./assets/images/bukonzoFly.jpg"),
     new Producto(4, "Koke Shalaye", "Etiopía", "2200 msnm", 88.0, "Aeropress", 18.00, "./assets/images/kokeShalaye.jpg"),
@@ -42,38 +42,67 @@ function crearProducto() {
 
         <p class="card-precio">Precio: €${producto.precio.toFixed(2)}</p>
 
-        <a href="#" class="btn btn-dark">Agregar al carrito</a>
-
-      </div>
+        <a href="#" class="btn btn-dark" onclick="agregarCarrito(${producto.id})">Agregar al carrito</a>
+    </div>
       `;
 
-      productContainer.appendChild(card);    
+        productContainer.appendChild(card);
     });
 }
 
+/* cargar los prodcutos al cargar la pagina */
 document.addEventListener("DOMContentLoaded", crearProducto);
 
-/* // Cargar carrito desde localStorage o inicializar vacío
-let carritoCompras = JSON.parse(localStorage.getItem("carrito")) || [];
+//agregar productos al carrito
+let carritoCompras = [];
+const listaCarrito = document.getElementById("lista-carrito");
 
-//Traet la lista de productos en el carrito
-const listaCarrito = document.getElementById("products-list");
-const botonVaciarCarrito = document.getElementById("empty-cart");
-
-//Funcion para agregar productos al carrito
-function agregarCarrito(event) {
-    const productId = parseInt(event.target.dataset.id);
-    const productoSeleccionado = productos.find(producto => producto.id === productId);
+function agregarCarrito(productoId) {
+    const productoSeleccionado = productos.find(producto => producto.id === productoId);
 
     if (productoSeleccionado) {
         carritoCompras.push(productoSeleccionado);
-        guardarCarrito();
+
         actualizarCarrito();
     }
 }
 
+// actualizar la lista de productos
+function actualizarCarrito() {
+
+    if (carritoCompras.length === 0) {
+        let li = document.createElement("li");
+        li.innerText = "Actualmente tu carrito esta vacio";
+        listaCarrito.appendChild(li);
+    } else {
+        listaCarrito.innerHTML = "";
+        
+        carritoCompras.forEach(producto => {
+            let li = document.createElement("li");
+            li.innerText = `${producto.nombre}: $${producto.precio}`;
+            listaCarrito.appendChild(li);
+        });
+    }
+}
+
+document.querySelector(".tdc-cart").addEventListener("click", function () {
+
+    let offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvas'));
+
+    offcanvas.show();
+
+});
+
+
+/* // Cargar carrito desde localStorage o inicializar vacío
+let carritoCompras = JSON.parse(localStorage.getItem("carrito")) || []; */
+
+/* //Traer la lista de productos en el carrito
+const listaCarrito = document.getElementById("products-list");
+const botonVaciarCarrito = document.getElementById("empty-cart"); */
+
 // guarda carrito en localStorage
-function guardarCarrito() {
+/* function guardarCarrito() {
     localStorage.setItem("carrito", JSON.stringify(carritoCompras));
 }
 
@@ -82,24 +111,9 @@ function vaciarCarrito() {
     carritoCompras = [];
     guardarCarrito();
     actualizarCarrito();
-}
+} */
 
-// actualizar la lista de productos
-function actualizarCarrito() {
-    listaCarrito.innerHTML = "";
-
-    carritoCompras.forEach(producto => {
-        let li = document.createElement("li");
-        li.innerText = `${producto.nombre} - $${producto.precio}`;
-        listaCarrito.appendChild(li);
-    });
-}
-
-// event "Agregar al carro"
-document.addEventListener("DOMContentLoaded", () => {
-    actualizarCarrito(); // Cargar carrito al iniciar la página
-
-    const botonesAgregar = document.querySelectorAll(".product-add");
+/*     const botonesAgregar = document.querySelectorAll(".product-add");
     botonesAgregar.forEach(boton => {
         boton.addEventListener("click", agregarCarrito);
     });
