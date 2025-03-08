@@ -54,7 +54,7 @@ function crearProducto() {
 document.addEventListener("DOMContentLoaded", crearProducto);
 
 
-// Cargar carrito desde localStorage o inicializar vacío
+// cargar carrito desde localStorage o inicializar vacío
 let carritoCompras = JSON.parse(localStorage.getItem("carrito")) || [];
 
 //agregar productos al carrito
@@ -108,6 +108,8 @@ function actualizarCarrito() {
     }
 }
 
+/* ---------------------------ver carrito y guardar -------------------------------*/
+
 document.querySelector(".tdc-cart").addEventListener("click", function () {
 
     let offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvas'));
@@ -144,6 +146,8 @@ function vaciarCarrito() {
 const botonVaciarCarrito = document.getElementById("empty-cart");
 botonVaciarCarrito.addEventListener("click", vaciarCarrito);
 
+/* ------------------------------------descuento-----------------------------------*/
+
 setTimeout(() => {
     Swal.fire({
         title: "5% de descuento",
@@ -153,4 +157,73 @@ setTimeout(() => {
         imageHeight: 200,
         imageAlt: "Productos TDC"
     });
-}, 10000);
+}, 1000);
+
+
+/* ---------------------------------checkout-----------------------------------*/
+
+document.getElementById("pay-cart").addEventListener("click", function () {
+    // FORMATO MODAL bs
+    var myModal = new bootstrap.Modal(document.getElementById('modalDescuento'));
+    myModal.show();
+});
+
+document.getElementById("aplicarCodigo").addEventListener("click", function () {
+    const codigoIngresado = document.getElementById("codigoDescuento").value.trim();
+
+    // Verificar CODIGO
+    if (!codigoIngresado) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No has ingresado un codigo de descuento',
+        });
+        return;
+    }
+    // fetch codigos desde json local
+    fetch('assets/json/codigosDescuento.json')
+        .then(response => response.json())
+        .then(data => {
+            let descuentoAplicado = 1; // Sin descuento
+            let codigoValido = false;
+
+            // varificar en el JSON
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].codigo === codigoIngresado) {
+                    descuentoAplicado = data[i].descuento;
+                    codigoValido = true;
+                    break;
+                }
+            }
+
+            
+            if (codigoValido) {
+                let totalCompra = 0;
+                carritoCompras.forEach(function (producto) {
+                    totalCompra += producto.precio;
+                });
+
+                let precioConDescuento = totalCompra * descuentoAplicado;
+                Swal.fire({
+                    title: 'Compra exitosa',
+                    text: `Precio con descuento: €${precioConDescuento.toFixed(2)}`,
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Codigo no válido',
+                });
+            }
+
+            
+            const myModal = bootstrap.Modal.getInstance(document.getElementById('modalDescuento'));
+            myModal.hide();
+        })
+        .catch(error => {
+            console.error("Error al cargar los códigos de descuento:", error);
+            alert("Hubo un problema al procesar tu código");
+        });
+});

@@ -1,0 +1,5 @@
+[
+    { "codigo": "JAVASCRIPT", "descuento": 0.95 },
+    { "codigo": "HTML", "descuento": 0.90 },
+    { "codigo": "CSS", "descuento": 0.85 }
+]

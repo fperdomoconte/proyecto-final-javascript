@@ -50,7 +50,7 @@
 .hero-container div.product-container div.card {
   display: flex;
   flex-direction: column;
-  width: 18rem;
+  width: 13rem;
   height: auto;
   border: 2px solid #ff0000;
   border-radius: 10px;
@@ -58,13 +58,13 @@
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 .hero-container div.product-container div.card .card-img-top {
-  height: 20rem;
+  height: 13rem;
 }
 .hero-container div.product-container div.card .card-body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 15px;
+  padding: 10px;
   font-family: "PTSans-Regular", sans-serif;
 }
 .hero-container div.product-container div.card .card-body .card-title {
