@@ -1,0 +1,23 @@
+#offcanvas {
+  font-family: "PTSans-Regular", sans-serif;
+
+  #precio-total{
+    margin-top: 0.5rem;
+    
+  }
+
+  #pay-cart {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  #shop-more-container {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+
+    a {
+      width: 50%;
+    }
+  }
+}

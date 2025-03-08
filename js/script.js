@@ -73,15 +73,17 @@ function agregarCarrito(productoId) {
             title: "Producto agregado exitosamente",
             showConfirmButton: false,
             timer: 1500
-          });
+        });
 
     }
 }
 
 // actualizar la lista de productos
 function actualizarCarrito() {
-    
+
     listaCarrito.innerHTML = "";
+
+    let totalCompra = 0;
 
     if (carritoCompras.length === 0) {
         let li = document.createElement("li");
@@ -94,8 +96,14 @@ function actualizarCarrito() {
             let li = document.createElement("li");
             li.innerText = `${producto.nombre}: $${producto.precio}`;
             listaCarrito.appendChild(li);
+
+            totalCompra += producto.precio;
         });
 
+        let precioTotal = document.createElement("p");
+        precioTotal.innerHTML = `<strong>TOTAL: €${totalCompra.toFixed(2)}</strong>`;
+        precioTotal.id = 'precio-total';
+        listaCarrito.appendChild(precioTotal);
 
     }
 }
@@ -111,13 +119,13 @@ document.querySelector(".tdc-cart").addEventListener("click", function () {
 });
 
 document.getElementById("shop-more").addEventListener("click", function () {
-        let offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('offcanvas'));
-    
+    let offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('offcanvas'));
+
     if (!offcanvas) {
         offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvas'));
     }
 
-    
+
     offcanvas.hide();
 });
 
@@ -129,9 +137,20 @@ function guardarCarrito() {
 // vaciar el carrito LS
 function vaciarCarrito() {
     carritoCompras = [];
-    guardarCarrito(); 
+    guardarCarrito();
     actualizarCarrito();
 }
 
 const botonVaciarCarrito = document.getElementById("empty-cart");
 botonVaciarCarrito.addEventListener("click", vaciarCarrito);
+
+setTimeout(() => {
+    Swal.fire({
+        title: "5% de descuento",
+        html: "<strong>Código: JAVASCRIPT</strong>",
+        imageUrl: "assets/images/coffee-beans-filled-roast-brew-svgrepo-com.svg",
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Productos TDC"
+    });
+}, 10000);

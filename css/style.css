@@ -78,6 +78,25 @@
   margin-top: auto;
 }
 
+#offcanvas {
+  font-family: "PTSans-Regular", sans-serif;
+}
+#offcanvas #precio-total {
+  margin-top: 0.5rem;
+}
+#offcanvas #pay-cart {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+#offcanvas #shop-more-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+#offcanvas #shop-more-container a {
+  width: 50%;
+}
+
 .footer-container {
   background-color: rgba(244, 244, 244, 0.893);
   border-top: 2px solid rgb(255, 0, 0);
