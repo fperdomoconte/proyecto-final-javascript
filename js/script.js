@@ -65,8 +65,15 @@ function agregarCarrito(productoId) {
 
     if (productoSeleccionado) {
         carritoCompras.push(productoSeleccionado);
-        guardarCarrito();/* 
-        actualizarCarrito(); */
+        guardarCarrito();
+
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Producto agregado exitosamente",
+            showConfirmButton: false,
+            timer: 1500
+          });
 
     }
 }
@@ -88,6 +95,8 @@ function actualizarCarrito() {
             li.innerText = `${producto.nombre}: $${producto.precio}`;
             listaCarrito.appendChild(li);
         });
+
+
     }
 }
 
@@ -99,6 +108,17 @@ document.querySelector(".tdc-cart").addEventListener("click", function () {
 
     actualizarCarrito();
 
+});
+
+document.getElementById("shop-more").addEventListener("click", function () {
+        let offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('offcanvas'));
+    
+    if (!offcanvas) {
+        offcanvas = new bootstrap.Offcanvas(document.getElementById('offcanvas'));
+    }
+
+    
+    offcanvas.hide();
 });
 
 // guarda carrito en LS
