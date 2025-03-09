@@ -1,5 +1,11 @@
-Entrega 2 Javascript Flex CODERHOUSE
+# Entrega final Javascript
 
--Agregar productos al carrito dinamicamente
--Guardar el carro en localStorage
--Vaciar el carro y actualizar la vista
+Curos CODERHOUSE, modalidad Flex.
+
+## Simulador
+
+El proyecto simula el proceso de compra de una tienda de café. 
+
+## Licencia
+
+Todos los derechos reservados, Florencia Perdomo 2025.
