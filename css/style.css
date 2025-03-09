@@ -1,112 +1,18 @@
-/* reset*/
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* Error: expected ")".
+ *   ,
+ * 4 |     src: url("/assets/fonts/PTSans-Regular.ttf" format("truetype");
+ *   |                                                                   ^
+ *   '
+ *   sass\utilities\_global.scss 4:67  @import
+ *   sass\style.scss 3:9               root stylesheet */
 
-/* typography */
-@font-face {
-  font-family: "PTSans-Regular";
-  src: url("assets/fonts/PTSans-Regular.ttf") format("truetype");
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: 'Error: expected ")".\a   \2577 \a 4 \2502      src: url("/assets/fonts/PTSans-Regular.ttf" format("truetype");\d\a   \2502                                                                    ^\a   \2575 \a   sass\\utilities\\_global.scss 4:67  @import\a   sass\\style.scss 3:9               root stylesheet';
 }
-@font-face {
-  font-family: "PTSans-Bold";
-  src: url("assets/fonts/PTSans-Bold.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Pacifico-Regular";
-  src: url("assets/fonts/Pacifico-Regular.ttf") format("truetype");
-}
-/* header */
-.header-container {
-  background-color: rgba(244, 244, 244, 0.893);
-  border-bottom: 2px solid rgb(255, 0, 0);
-}
-.header-container a.tdc-logo img {
-  height: 50px;
-}
-.header-container a.tdc-cart img {
-  height: 30px;
-}
-
-/* homepgae */
-.hero-container {
-  height: auto;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  /* align-items: center;
-  justify-content: center; */
-}
-.hero-container div.product-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding-bottom: 50px;
-  margin: 2rem;
-}
-.hero-container div.product-container div.card {
-  display: flex;
-  flex-direction: column;
-  width: 13rem;
-  height: auto;
-  border: 2px solid #ff0000;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-}
-.hero-container div.product-container div.card .card-img-top {
-  height: 13rem;
-}
-.hero-container div.product-container div.card .card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px;
-  font-family: "PTSans-Regular", sans-serif;
-}
-.hero-container div.product-container div.card .card-body .card-title {
-  font-family: "PTSans-Bold", sans-serif;
-}
-.hero-container div.product-container div.card .card-body .card-precio {
-  font-family: "PTSans-Bold", sans-serif;
-}
-.hero-container div.product-container div.card .card-body .btn {
-  align-self: flex-start;
-  margin-top: auto;
-}
-
-#offcanvas {
-  font-family: "PTSans-Regular", sans-serif;
-}
-#offcanvas #precio-total {
-  margin-top: 0.5rem;
-}
-#offcanvas #pay-cart {
-  width: 100%;
-  margin-bottom: 0.5rem;
-}
-#offcanvas #shop-more-container {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-}
-#offcanvas #shop-more-container a {
-  width: 50%;
-}
-
-.footer-container {
-  background-color: rgba(244, 244, 244, 0.893);
-  border-top: 2px solid rgb(255, 0, 0);
-  height: 3rem;
-  display: flex;
-  flex-direction: column;
-}
-.footer-container h6 {
-  align-self: center;
-  margin-top: 10px;
-}
-
-/*# sourceMappingURL=style.css.map */
