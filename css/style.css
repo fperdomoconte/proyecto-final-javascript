@@ -22,15 +22,15 @@
 } */
 @font-face {
   font-family: "PTSans-Regular";
-  src: url("https://fperdomoconte.github.io/proyecto-final-javascript/assets/fonts/PTSans-Regular.ttf") format("truetype");
+  src: url(../assets/fonts/PTSans-Regular.ttf) format("truetype");
 }
 @font-face {
   font-family: "PTSans-Bold";
-  src: url("https://fperdomoconte.github.io/proyecto-final-javascript/assets/fonts/PTSans-Bold.ttf") format("truetype");
+  src: url(../assets/fonts/PTSans-Bold.ttf) format("truetype");
 }
 @font-face {
   font-family: "Pacifico-Regular";
-  src: url("https://fperdomoconte.github.io/proyecto-final-javascript/assets/fonts/Pacifico-Regular.ttf") format("truetype");
+  src: url(../assets/fonts/Pacifico-Regular.ttf) format("truetype");
 }
 /* header */
 .header-container {
